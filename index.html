@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <title>Draggable Element</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>Draggable Div</header>
+    <div class="content">
+      <div class="icon"><i class="bx bx-move"></i></div>
+      <div class="title">Draggable Div</div>
+      <p>This is a draggable div, which is created using HTML CSS and Javascript. You can move this div anywhere on the
+        page.</p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.querySelector('.container');
+    const header = document.querySelector('header');
+
+    function onDrag({
+      movementX,
+      movementY
+    }) {
+      let getStyle = window.getComputedStyle(container)
+      // getting top and left value of container and parse it to integer
+      let left = parseInt(getStyle.left)
+      let top = parseInt(getStyle.top)
+      // adding movementX and movementY to top and left value
+      container.style.left = `${left + movementX}px`
+      container.style.top = `${top + movementY}px`
+    }
+
+    header.addEventListener('mousedown', () => {
+      header.classList.add('active')
+      header.addEventListener('mousemove', onDrag)
+    });
+    document.addEventListener('mouseup', () => {
+      header.classList.remove('active')
+      header.removeEventListener('mousemove', onDrag)
+    });
+  </script>
+</body>
+
+</html>
